@@ -1,6 +1,6 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 
 import pandas as pd
 
@@ -363,32 +363,37 @@ number_boxes = html.Div([
 
 def get_barchart_of_types(dataframe):
     types_counts = dataframe['Type'].value_counts().reset_index()
-    fig = px.bar(types_counts, x='index', y='Type',
+    types_counts.columns = ['Type', 'count']  # Rename the columns
+
+    fig = px.bar(types_counts, x='Type', y='count',  # Use 'Type' and 'count'
                 labels={
-                     "index": "Property Type",
-                     "Type": "Counts",
+                     "Type": "Property Type",
+                     "count": "Counts",
                  })
-    fig.update_layout(title_text="Counts for Property Type", title_x=0.5,)
+    fig.update_layout(title_text="Counts for Property Type", title_x=0.5)
     return fig
 
 def get_barchart_of_beds(dataframe):
     beds_counts = dataframe['No. Beds'].value_counts().reset_index()
-    beds_counts = beds_counts[beds_counts['index'] < 5]
-    fig = px.bar(beds_counts, x='index', y='No. Beds',
-                    labels={
-                         "index": "Number of Beds",
-                         "No. Beds": "Counts",
-                     }
-                )
+    beds_counts.columns = ['No. Beds', 'count']  # Rename columns after reset_index
+
+    beds_counts = beds_counts[beds_counts['No. Beds'] < 5]  # Use 'No. Beds' instead of 'index'
+
+    fig = px.bar(beds_counts, x='No. Beds', y='count',
+                 labels={
+                     "No. Beds": "Number of Beds",
+                     "count": "Counts",
+                 })
     fig.update_layout(
-        xaxis = dict(
-            tickmode = 'linear',
-            tick0 = 0,
-            dtick = 1
+        xaxis=dict(
+            tickmode='linear',
+            tick0=0,
+            dtick=1
         ),
         title_text="Counts for Number of Bedrooms", title_x=0.5,
     )
     return fig
+
 
 types_bedroom_box = html.Div([
 
