@@ -5,7 +5,7 @@ Interactive Map of Properties and Real Estate in Dhaka, Bangladesh, using data f
 
 ## Demo
 
-https://dhaka-property-prices.herokuapp.com/
+https://python-dash-app-d6pt.onrender.com/
 
 
 
