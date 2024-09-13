@@ -1,6 +1,6 @@
 asgiref
 autopep8
-dash==1.18.1
+dash
 dash-bootstrap-components
 dash-core-components
 dash-html-components
